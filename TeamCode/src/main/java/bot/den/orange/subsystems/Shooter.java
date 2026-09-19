@@ -26,8 +26,7 @@ public class Shooter implements BaseSubsystem {
     private final ElapsedTime feederTimer = new ElapsedTime();
     private final ElapsedTime shotTimer = new ElapsedTime();
     private DcMotorEx launcher = null;
-    private CRServo leftFeeder = null;
-    private CRServo rightFeeder = null;
+    private CRServo launcherServo = null;
     private int numberOfArtifacts = 0;
 
     public Shooter(Telemetry telemetry){
@@ -37,19 +36,17 @@ public class Shooter implements BaseSubsystem {
     public void init (HardwareMap hardwareMap){
         launchState = LaunchState.IDLE;
         launcher = hardwareMap.get(DcMotorEx.class, Constants.Robot.ConfigNames.launcher);
-        leftFeeder = hardwareMap.get(CRServo.class, Constants.Robot.ConfigNames.leftFeederServo);
-        rightFeeder = hardwareMap.get(CRServo.class, Constants.Robot.ConfigNames.rightFeederServo);
+        launcherServo = hardwareMap.get(CRServo.class, Constants.Robot.ConfigNames.launcherServo);
 
         launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         launcher.setZeroPowerBehavior(BRAKE);
 
-        leftFeeder.setPower(Constants.Shooter.feederStopPower);
-        rightFeeder.setPower(Constants.Shooter.feederStopPower);
+        launcherServo.setPower(Constants.Shooter.feederStopPower);
 
         launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
 
-        leftFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
+        launcherServo.setDirection(DcMotorSimple.Direction.REVERSE);
         launcher.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
@@ -61,8 +58,7 @@ public class Shooter implements BaseSubsystem {
         launcher.setVelocity(Constants.Shooter.launcherStopVelocityRpm);
     }
     public void runFeederReverse(){
-        rightFeeder.setPower(Constants.Shooter.feederReversePower);
-        leftFeeder.setPower(Constants.Shooter.feederReversePower);
+        launcherServo.setPower(Constants.Shooter.feederReversePower);
     };
     public void showTelemetry(){
         telemetry.addData("motorSpeed", launcher.getVelocity());
@@ -82,19 +78,16 @@ public class Shooter implements BaseSubsystem {
                 if (launcher.getVelocity() > Constants.Shooter.launcherMinVelocityRpm){
                     launchState = LaunchState.LAUNCH;
                     shotTimer.reset();
-                    leftFeeder.setPower(Constants.Shooter.feederRunPower);
-                    rightFeeder.setPower(Constants.Shooter.feederRunPower);
+                    launcherServo.setPower(Constants.Shooter.feederRunPower);
                     feederTimer.reset();
                 }
                 break;
             case LAUNCH:
                 if (feederTimer.seconds() > Constants.Shooter.feedTimeSeconds) {
-                    leftFeeder.setPower(Constants.Shooter.feederStopPower);
-                    rightFeeder.setPower(Constants.Shooter.feederStopPower);
+                    launcherServo.setPower(Constants.Shooter.feederStopPower);
                     if(shotTimer.seconds() > Constants.Shooter.launchTimeSeconds){
                         numberOfArtifacts--;
-                        leftFeeder.setPower(Constants.Shooter.feederStopPower);
-                        rightFeeder.setPower(Constants.Shooter.feederStopPower);
+                        launcherServo.setPower(Constants.Shooter.feederStopPower);
                         launchState = LaunchState.IDLE;
                     }
                 }
@@ -121,17 +114,14 @@ public class Shooter implements BaseSubsystem {
 
     public void stop(){
         stopLauncher();
-        leftFeeder.setPower(Constants.Shooter.feederStopPower);
-        rightFeeder.setPower(Constants.Shooter.feederStopPower);
+        launcherServo.setPower(Constants.Shooter.feederStopPower);
     }
 
     public void runFeederSlowIn() {
-        leftFeeder.setPower(Constants.Shooter.feederSlowPower);
-        rightFeeder.setPower(Constants.Shooter.feederSlowPower);
+        launcherServo.setPower(Constants.Shooter.feederSlowPower);
     }
     public void reverseShooter() {
-        leftFeeder.setPower(Constants.Shooter.feederReversePower);
-        rightFeeder.setPower(Constants.Shooter.feederReversePower);
+        launcherServo.setPower(Constants.Shooter.feederReversePower);
         launcher.setVelocity(Constants.Shooter.launcherReverseSpeed);
     }
 }

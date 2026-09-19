@@ -28,12 +28,12 @@ public class Constants {
         public static class ConfigNames {
             public static final String rightDrive = "right_drive";
             public static final String leftDrive = "left_drive";
-            public static final String rightFeederServo = "right_feeder";
-            public static final String leftFeederServo = "left_feeder";
+            public static final String launcherServo = "launcher_servo";
             public static final String launcher = "launcher";
             public static final String intake = "intake";
             public static final String limelight = "limelight";
-            public static final String spinnything = "spinnything";
+            public static final String leftIntakeServo = "left_intake_servo";
+            public static final String rightIntakeServo = "right_intake_servo";
         }
 
         private static final double wheelDiameterMM = 96;
@@ -54,9 +54,5 @@ public class Constants {
         public static final double launcherStopVelocityRpm = 0.0;
         public static final double feedTimeSeconds = 0.25;
         public static final double launchTimeSeconds = 1;
-    }
-    public static class EpicSpinnyThingy {
-        public static final double spinnyThingyGoBrrr = 1;
-        public static final double stGoBrrUnoReverse = -1;
     }
 }
