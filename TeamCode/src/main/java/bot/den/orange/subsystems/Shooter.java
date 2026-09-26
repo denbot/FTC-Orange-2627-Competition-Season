@@ -65,63 +65,16 @@ public class Shooter implements BaseSubsystem {
         telemetry.addData("State", launchState);
     }
 
-    public void launch(){
-        switch (launchState) {
-            case IDLE:
-                if (numberOfArtifacts > 0) {
-                    launchState = LaunchState.PREPARE;
-
-                }
-                break;
-            case PREPARE:
-                launcher.setVelocity(Constants.Shooter.launcherTargetVelocityRpm);
-                if (launcher.getVelocity() > Constants.Shooter.launcherMinVelocityRpm){
-                    launchState = LaunchState.LAUNCH;
-                    shotTimer.reset();
-                    launcherServo.setPower(Constants.Shooter.feederRunPower);
-                    feederTimer.reset();
-                }
-                break;
-            case LAUNCH:
-                if (feederTimer.seconds() > Constants.Shooter.feedTimeSeconds) {
-                    launcherServo.setPower(Constants.Shooter.feederStopPower);
-                    if(shotTimer.seconds() > Constants.Shooter.launchTimeSeconds){
-                        numberOfArtifacts--;
-                        launcherServo.setPower(Constants.Shooter.feederStopPower);
-                        launchState = LaunchState.IDLE;
-                    }
-                }
+    public void shoot(){
+        if (launcher.getVelocity() > Constants.Shooter.launcherMinVelocityRpm){
+            launcherServo.setPower(Constants.Shooter.feederServoPower);
+        }
+        else{
+            startLauncher();
         }
     }
-
-    public void requestShot(){
-        numberOfArtifacts++;
-        if (numberOfArtifacts > Constants.Game.maxArtifacts){
-            numberOfArtifacts = Constants.Game.maxArtifacts;
-        }
-    }
-
-    public void setNumberOfArtifacts(int shotsRequested){
-        numberOfArtifacts = shotsRequested;
-        if (numberOfArtifacts > Constants.Game.maxArtifacts){
-            numberOfArtifacts = Constants.Game.maxArtifacts;
-        }
-    }
-
-    public boolean doneShooting(){
-        return numberOfArtifacts == 0;
-    }
-
     public void stop(){
         stopLauncher();
         launcherServo.setPower(Constants.Shooter.feederStopPower);
-    }
-
-    public void runFeederSlowIn() {
-        launcherServo.setPower(Constants.Shooter.feederSlowPower);
-    }
-    public void reverseShooter() {
-        launcherServo.setPower(Constants.Shooter.feederReversePower);
-        launcher.setVelocity(Constants.Shooter.launcherReverseSpeed);
     }
 }

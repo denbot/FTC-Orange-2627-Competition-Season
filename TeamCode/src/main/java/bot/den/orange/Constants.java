@@ -54,5 +54,6 @@ public class Constants {
         public static final double launcherStopVelocityRpm = 0.0;
         public static final double feedTimeSeconds = 0.25;
         public static final double launchTimeSeconds = 1;
+        public static final double feederServoPower = 1;
     }
 }
