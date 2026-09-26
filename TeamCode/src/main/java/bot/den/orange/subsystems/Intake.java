@@ -16,6 +16,8 @@ public class Intake implements BaseSubsystem {
     private DcMotor intakeMotor = null;
     private CRServo leftServo = null;
     private CRServo rightServo = null;
+    private double intakePower = Constants.Intake.intakePower;
+    private double intakeServoPower = Constants.Intake.intakeServoPower;
 
     public Intake(Telemetry telemetry){
         this.telemetry=telemetry;
@@ -37,9 +39,9 @@ public class Intake implements BaseSubsystem {
     }
 
     public void intake(){
-        intakeMotor.setPower(Constants.Intake.intakePower);
-        leftServo.setPower(Constants.Intake.intakeServoPower);
-        rightServo.setPower(Constants.Intake.intakeServoPower);
+        intakeMotor.setPower(intakePower);
+        leftServo.setPower(intakeServoPower);
+        rightServo.setPower(intakeServoPower);
     }
     public void outtake(){
         intakeMotor.setPower(Constants.Intake.outtakePower);
@@ -51,6 +53,13 @@ public class Intake implements BaseSubsystem {
         intakeMotor.setPower(Constants.Intake.stopPower);
         leftServo.setPower(Constants.Intake.stopServoPower);
         rightServo.setPower(Constants.Intake.stopServoPower);
+    }
+
+    public void changeIntakePower(double change){
+        intakePower += change;
+    }
+    public void changeIntakeServoPower(double change){
+        intakeServoPower += change;
     }
 }
 

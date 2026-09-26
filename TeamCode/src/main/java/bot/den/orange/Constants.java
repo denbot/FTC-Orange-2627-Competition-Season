@@ -21,6 +21,8 @@ public class Constants {
         public static final double intakeServoPower = 0.5;
         public static final double outtakeServoPower = -0.5;
         public static final double stopServoPower = 0.0;
+        public static final double intakeServoPowerBump = 0.05;
+        public static final double intakeMotorPowerBump = 0.05;
     }
 
     public static class Robot {
