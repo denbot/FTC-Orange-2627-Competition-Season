@@ -15,26 +15,16 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import bot.den.orange.Constants;
 
 public class Shooter implements BaseSubsystem {
-    private enum LaunchState {
-        IDLE,
-        PREPARE,
-        LAUNCH,
-    }
 
     private final Telemetry telemetry;
-    private LaunchState launchState;
-    private final ElapsedTime feederTimer = new ElapsedTime();
-    private final ElapsedTime shotTimer = new ElapsedTime();
     private DcMotorEx launcher = null;
     private CRServo launcherServo = null;
-    private int numberOfArtifacts = 0;
 
     public Shooter(Telemetry telemetry){
         this.telemetry=telemetry;
     }
 
     public void init (HardwareMap hardwareMap){
-        launchState = LaunchState.IDLE;
         launcher = hardwareMap.get(DcMotorEx.class, Constants.Robot.ConfigNames.launcher);
         launcherServo = hardwareMap.get(CRServo.class, Constants.Robot.ConfigNames.launcherServo);
 
@@ -61,8 +51,8 @@ public class Shooter implements BaseSubsystem {
         launcherServo.setPower(Constants.Shooter.feederReversePower);
     };
     public void showTelemetry(){
-        telemetry.addData("motorSpeed", launcher.getVelocity());
-        telemetry.addData("State", launchState);
+        telemetry.addData("shooterMotorSpeed", launcher.getVelocity());
+        telemetry.addData("shooterServoPower", launcherServo.getPower());
     }
 
     public void shoot(){

@@ -33,18 +33,24 @@ public class Intake implements BaseSubsystem {
 
     public void showTelemetry(){
         telemetry.addData("Intake", "Power (%.2f)", intakeMotor.getPower());
+        telemetry.addData("intakeServos", "Power L(%.2f) R(%.2f)", leftServo.getPower(), rightServo.getPower());
     }
 
     public void intake(){
         intakeMotor.setPower(Constants.Intake.intakePower);
+        leftServo.setPower(Constants.Intake.intakeServoPower);
+        rightServo.setPower(Constants.Intake.intakeServoPower);
     }
-    public void slowIntake() {intakeMotor.setPower(Constants.Intake.slowIntakePower) ;}
     public void outtake(){
         intakeMotor.setPower(Constants.Intake.outtakePower);
+        leftServo.setPower(Constants.Intake.outtakeServoPower);
+        rightServo.setPower(Constants.Intake.outtakeServoPower);
     }
 
     public void stopIntake(){
         intakeMotor.setPower(Constants.Intake.stopPower);
+        leftServo.setPower(Constants.Intake.stopServoPower);
+        rightServo.setPower(Constants.Intake.stopServoPower);
     }
 }
 
