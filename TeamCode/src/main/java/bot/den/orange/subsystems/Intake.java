@@ -25,12 +25,12 @@ public class Intake implements BaseSubsystem {
 
     public void init(HardwareMap hardwareMap){
         intakeMotor = hardwareMap.get(DcMotor.class, Constants.Robot.ConfigNames.intake);
-        intakeMotor.setDirection(DcMotor.Direction.REVERSE);
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
         intakeMotor.setZeroPowerBehavior(BRAKE);
         leftServo = hardwareMap.get(CRServo.class, Constants.Robot.ConfigNames.leftIntakeServo);
-        leftServo.setDirection(CRServo.Direction.REVERSE);
+        leftServo.setDirection(CRServo.Direction.FORWARD);
         rightServo = hardwareMap.get(CRServo.class, Constants.Robot.ConfigNames.rightIntakeServo);
-        rightServo.setDirection(CRServo.Direction.FORWARD);
+        rightServo.setDirection(CRServo.Direction.REVERSE);
     }
 
     public void showTelemetry(){

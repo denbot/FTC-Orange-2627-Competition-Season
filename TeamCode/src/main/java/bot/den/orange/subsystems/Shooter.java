@@ -31,14 +31,12 @@ public class Shooter implements BaseSubsystem {
 
         launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        launcher.setZeroPowerBehavior(BRAKE);
-
         launcherServo.setPower(Constants.Shooter.feederStopPower);
 
         launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
 
         launcherServo.setDirection(DcMotorSimple.Direction.REVERSE);
-        launcher.setDirection(DcMotorSimple.Direction.REVERSE);
+        launcher.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public void startLauncher(){

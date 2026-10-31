@@ -3,6 +3,7 @@ package bot.den.orange.subsystems;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -28,8 +29,8 @@ public class Drive implements BaseSubsystem {
             leftDrive = hardwareMap.get(DcMotor.class, Constants.Robot.ConfigNames.leftDrive);
             rightDrive = hardwareMap.get(DcMotor.class, Constants.Robot.ConfigNames.rightDrive);
 
-            leftDrive.setDirection(DcMotor.Direction.REVERSE);
-            rightDrive.setDirection(DcMotor.Direction.FORWARD);
+            leftDrive.setDirection(DcMotor.Direction.FORWARD);
+            rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
             leftDrive.setZeroPowerBehavior(BRAKE);
             rightDrive.setZeroPowerBehavior(BRAKE);
