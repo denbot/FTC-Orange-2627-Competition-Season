@@ -19,7 +19,7 @@ public class Shooter implements BaseSubsystem {
     private final Telemetry telemetry;
     private DcMotorEx launcher = null;
     private CRServo launcherServo = null;
-    private double launcherSpeed = Constants.Shooter.launcherTargetVelocityRpm;
+    private double launcherSpeed = Constants.Shooter.shooterSpeedFar;
 
     public Shooter(Telemetry telemetry){
         this.telemetry=telemetry;
@@ -52,11 +52,12 @@ public class Shooter implements BaseSubsystem {
     public void showTelemetry(){
         telemetry.addData("shooterMotorSpeed", launcher.getVelocity());
         telemetry.addData("shooterServoPower", launcherServo.getPower());
+        telemetry.addData("shooterTargetSpeed", launcherSpeed);
     }
 
     public void shoot(){
         startLauncher();
-        if (launcher.getVelocity() > launcherSpeed - Constants.Shooter.launcherVelocityToleranceRpm){
+        if (Math.abs(launcher.getVelocity()-launcherSpeed) < Constants.Shooter.launcherVelocityToleranceRpm){
             launcherServo.setPower(Constants.Shooter.feederServoPower);
         }
     }
@@ -66,5 +67,8 @@ public class Shooter implements BaseSubsystem {
     }
     public void changeSpeed(double change){
         launcherSpeed = launcherSpeed + change;
+    }
+    public void setTargetSpeed(double targetSpeed){
+        launcherSpeed = targetSpeed;
     }
 }

@@ -45,10 +45,13 @@ public class Constants {
     public static class Shooter {
         public static final double feederReversePower = -0.4;
         public static final double feederStopPower = 0.0;
-        public static final double launcherTargetVelocityRpm = 1250;
         public static final double launcherVelocityToleranceRpm = 25;
         public static final double launcherStopVelocityRpm = 0.0;
         public static final double feederServoPower = 1;
         public static final double launcherVelocityBumpRpm = 5;
+        public static final double shooterSpeedClose = 1150;
+        public static final double shooterSpeedFar = 1350;
+        public static final double feedTimeSeconds;
+        public static final double launchTimeSeconds;
     }
 }

@@ -48,6 +48,13 @@ public class DualControlTeleop extends OpMode {
             intake.stopIntake();
         }
 
+        if(gamepad2.dpadDownWasPressed()){
+            shooter.setTargetSpeed(Constants.Shooter.shooterSpeedFar);
+        }
+        else if(gamepad2.dpadUpWasPressed()){
+            shooter.setTargetSpeed(Constants.Shooter.shooterSpeedClose);
+        }
+
         drive.showTelemetry();
         shooter.showTelemetry();
         intake.showTelemetry();
