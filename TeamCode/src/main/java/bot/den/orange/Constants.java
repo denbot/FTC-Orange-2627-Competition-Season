@@ -21,6 +21,8 @@ public class Constants {
         public static final double intakeServoPower = 0.5;
         public static final double outtakeServoPower = -0.5;
         public static final double stopServoPower = 0.0;
+        public static final double intakeServoPowerBump = 0.05;
+        public static final double intakeMotorPowerBump = 0.05;
     }
 
     public static class Robot {
@@ -43,9 +45,10 @@ public class Constants {
     public static class Shooter {
         public static final double feederReversePower = -0.4;
         public static final double feederStopPower = 0.0;
-        public static final double launcherTargetVelocityRpm = 1110;
-        public static final double launcherMinVelocityRpm = 1100;
+        public static final double launcherTargetVelocityRpm = 1250;
+        public static final double launcherVelocityToleranceRpm = 25;
         public static final double launcherStopVelocityRpm = 0.0;
         public static final double feederServoPower = 1;
+        public static final double launcherVelocityBumpRpm = 5;
     }
 }
